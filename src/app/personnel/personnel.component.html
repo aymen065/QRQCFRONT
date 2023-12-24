@@ -1,0 +1,71 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4 class="text-primary font-bold">Gestion des Personnels</h4>
+            <p-divider align="right">
+                <button pButton pRipple type="button" icon="pi pi-plus" label="Nouveau" class="p-button-warning" routerLink="/personnel/create"></button>
+            </p-divider>
+        </div>
+    </div>
+    <div class="col-12">
+		<div class="card">
+			<p-table  scrollDirection="both" [scrollable]="true"
+            [value]="users" 
+            scrollHeight="400px"
+            responsiveLayout="scroll" >
+				<ng-template pTemplate="header">
+					<tr>
+						<th style="width:120px;">Login</th>
+                        <th style="width:100px;">Nom</th>
+						<th style="width:120px;">Prénom</th>
+						<th style="width:200px;">Service</th>
+						<th style="width:200px;">Rôles</th>
+                        <th style="width:150px;">Accès</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-user>
+					<tr>
+						<td style="width:120px;">{{user.login}}</td>
+                        <td style="width:100px;">{{user.nom}}</td>
+                        <td style="width:120px;">{{user.prenom}}</td>
+                        <td style="width:200px;">{{user.service.nom}}</td>
+                        <td style="width:200px;" >
+                            <span *ngFor="let role of user.appRoles;">{{role.roleName}} ; </span>
+                        </td>
+                        <td style="width:150px;">
+                            <button pButton pRipple type="submit" icon="pi pi-user-edit" title="Changement de mot de passe" class="p-button-rounded p-button-success mr-2 mb-2" (click)="showDialog(user)"></button>
+                            <button pButton pRipple type="submit" *ngIf="!user.active" icon="pi pi-lock-open" title="Activer le compte" class="p-button-rounded p-button-info mr-2 mb-2" (click)="unlockUserAccount(user)"></button>
+                            <button pButton pRipple type="submit" *ngIf="user.active" icon="pi pi-lock" title="Déactiver le compte" class="p-button-rounded p-button-danger mr-2 mb-2" (click)="lockUserAccount(user)"></button>
+                        </td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+</div>
+
+
+<p-dialog header="Changement du mot de passe de l'utilisateur {{selectedUser?.prenom}} {{selectedUser?.nom}}" [(visible)]="display" [modal]="true" showEffect="fade" [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+    <form [formGroup]="myForm" class="">
+        <div class="p-fluid p-formgrid grid">
+            <div class="field col-12 md:col-12">
+                <label class="text-secondary font-bold" htmlfor="newPassword">Nouvau mot de passe</label>
+                <input type="password" pInputText [(ngModel)]="selectedUser.password" formControlName="newPassword"/>
+                 <div *ngIf="myForm.invalid && newPassword.dirty && newPassword.invalid">
+                    <div class="text-denger">Mot de passe non valide</div>
+                </div> 
+            </div>
+            <div class="field col-12 md:col-12">
+                <label class="text-secondary font-bold" htmlfor="confirmation">Confirmation nouvau mot de passe</label>
+                <input type="password" pInputText [(ngModel)]="selectedUser.confirmPassword" formControlName="confirmPassword"
+                (focusout)="checkPass()"/>
+                <div *ngIf="!passMatch  && (confirmPassword.dirty || confirmPassword.touched)">
+                    <div class="text-denger"> Mot de passe non conforme!</div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+            <button pButton pRipple class="p-button-outlined" type="reset" (click)="closeDialog()"> Annuler</button>
+            <button pButton pRipple class="p-button-primary" type="submit" (click)="updatePass()" [disabled]="!selectedUser?.id || myForm.invalid || !passMatch" > Valider</button>
+    </ng-template>
+</p-dialog>

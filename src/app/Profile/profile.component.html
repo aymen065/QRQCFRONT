@@ -1,0 +1,62 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4 class="text-primary font-bold">Profile</h4>
+            <form [formGroup]="myForm" >
+                <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-12">
+                        <label class="text-secondary font-bold" htmlfor="prenom">Prénom</label>
+                        <div>{{user?.prenom}}</div>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label class="text-secondary font-bold" htmlfor="nom">Nom</label>
+                        <div>{{user?.nom}}</div>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label class="text-secondary font-bold" htmlfor="oldPassword">Ancine mot de passe</label>
+                        <input type="password" pInputText [(ngModel)]="changePasswordModel.oldPassword" formControlName="oldPassword"
+                        (change)="isValid()" (blur)="isValid()"/>
+                        <div *ngIf="oldPassword.invalid && (oldPassword.dirty || oldPassword.touched)">
+                            <!-- <div class="text-denger" >Mot de passe incorrect</div> -->
+                            <div class="text-denger">Mot de passe non valide</div>
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label class="text-secondary font-bold" htmlfor="newPassword">Nouvau mot de passe</label>
+                        <input type="password" pInputText [(ngModel)]="changePasswordModel.newPassword" formControlName="newPassword"
+                        (change)="checkPassword()" (blur)="checkPassword()"/>
+                         <div *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)">
+                            <div class="text-denger">Mot de passe non valide</div>
+                        </div> 
+                        <div *ngIf="inchange && (confirmation.dirty || confirmation.touched)" class="messages text-danger error">
+                            <div class="text-denger"> Mot de passe inchangé</div>
+                        </div>
+                    </div>
+                    <div class="field col-12 md:col-12">
+                        <label class="text-secondary font-bold" htmlfor="confirmation">Confirmation nouvau mot de passe</label>
+                        <input type="password" pInputText [(ngModel)]="changePasswordModel.confirmation" formControlName="confirmation"
+                                (change)="checkPassword()"
+                                (blur)="checkPassword()"/>
+                        
+                        <div *ngIf="confirmation.invalid && (confirmation.dirty || confirmation.touched)">
+                            <div class="text-denger">Mot de passe non valide</div>
+                        </div>
+                        <div *ngIf="same && (confirmation.dirty || confirmation.touched)" class="messages text-danger error">
+                            <div class="text-denger">Mot de passe non conforme</div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="p-fluid">
+                    <p-divider align="right">
+                        <span class="p-buttonset">
+                            <button pButton pRipple type="reset" class="p-button-secondary mr-2 mb-2" label="Annuler"></button>
+                            <button pButton pRipple type="submit" class="p-button-success mr-2 mb-2" (click)="submit()" [disabled]="myForm.invalid" label="Valider"></button>
+                        </span>
+                    </p-divider>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

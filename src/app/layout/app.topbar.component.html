@@ -1,0 +1,30 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="home">
+        <img src="assets/layout/images/logo_misfat.png" alt="logo misfat">
+        <span class="block text-6xl font-bold mb-1 text-primary">QRQC</span>
+    </a>
+
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+        <i class="pi pi-ellipsis-v"></i>
+    </button>
+    
+    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+        <span class="block text-1xl font-bold mt-3">{{user?.nom}} {{user?.prenom}} ({{user?.service?.nom}})</span>
+        <button class="p-link layout-topbar-button"  title="Profile" routerLink="/profile">
+           <i class="pi pi-user"></i>
+        
+        </button> 
+        <button (click)="confirm()" class="p-link layout-topbar-button" title="Déconnexion">
+            <i class="pi pi-sign-out"></i>
+            <span>Déconnexion</span>
+        </button> 
+        
+    </div>
+</div>
+
+<p-confirmDialog header="Confirmation" key="confirm1" icon="pi pi-exclamation-triangle" 
+    [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text"></p-confirmDialog>

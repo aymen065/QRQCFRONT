@@ -1,0 +1,37 @@
+<div class="surface-0 flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
+    <div class="grid justify-content-center p-2 lg:p-0" style="min-width:80%">
+        <div class="col-12 mt-5 xl:mt-0 text-center">
+            <img src="assets/layout/images/logo_misfat.png" alt="logo misfat" class="mb-5" style=" height:70px;">
+            
+        </div>
+        <div class="col-12 xl:col-6" style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="h-full w-full m-0 py-7 px-4" style="border-radius:53px; background: linear-gradient(180deg, var(--surface-50) 38.9%, var(--surface-0));">
+                <div class="text-center mb-5">
+                   <!--  <img src="assets/demo/images/login/avatar.png" alt="Image" height="50" class="mb-3">
+                    <div class="text-900 text-3xl font-medium mb-3">Welcome, Isabel!</div>
+                    <span class="text-600 font-medium">Sign in to continue</span> -->
+                    <span class="block text-6xl font-bold mb-1 text-primary">QRQC</span>
+                    <div class="text-denger" *ngIf="erreur">{{erreur}}</div>
+                </div>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="w-full md:w-10 mx-auto">
+                   <label for="user" class="block text-900 text-xl font-medium mb-2">Utilisateur</label>
+                    <input (input)="clearError()" id="user" type="text" placeholder="Utilisateur" pInputText class="w-full mb-3" formControlName="login" style="padding:1rem;" [ngClass]="{ 'is-invalid': submitted && login.errors }">
+                   
+                   <div *ngIf="submitted && login.errors" class="invalid-feedback mb-5">
+                       <div class="text-denger" *ngIf="login.errors">Nom d'Utilisateur obligatoire</div>
+                   </div>
+
+                    <label class="block text-900 font-medium text-xl mb-2">Mot de passe</label>
+                    <input type="password" placeholder="mot de passe" pInputText class="w-full mb-3" formControlName="pwd" style="padding:1rem;" [ngClass]="{ 'is-invalid': submitted && pwd.errors }" >
+                    <div *ngIf="submitted && pwd.errors" class="invalid-feedback mb-5">
+                        <div class="text-denger" *ngIf="pwd.errors">Mot de passe obligatoire</div>
+                    </div> 
+                 
+                    <button pButton pRipple label="Connexion" class="w-full p-3 text-xl"></button>
+                </div>
+               </form>
+            </div>
+        </div>
+    </div>
+</div>

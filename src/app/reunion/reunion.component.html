@@ -1,0 +1,100 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4 class="text-primary font-bold">Réuinon</h4>
+            <p></p>
+            <p-divider align="right">
+                <button pButton pRipple type="button" icon="pi pi-plus" label="Nouveau" class="p-button-warning" routerLink="/reunion/create"></button>
+            </p-divider>
+              <!--  <div class="grid formgrid">
+				<div class="col-12 mb-2 lg:col-4 lg:mb-0">
+					<input type="text" pInputText placeholder="Default">
+				</div>
+			</div>  -->
+            <form [formGroup]="myForm" >
+                <div class="p-fluid p-formgrid grid">
+                    <div class="field col-12 md:col-2">
+                        <label class="text-secondary font-bold" htmlfor="dateInf">Date inférieure</label>
+                        <p-calendar  formControlName="dateInf" [(ngModel)]="selectedDateInf" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-2">
+                        <label class="text-secondary font-bold" htmlfor="dateSup">Date supéieure</label>
+                        <p-calendar  formControlName="dateSup" [(ngModel)]="selectedDateSup" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label class="text-secondary font-bold" htmlfor="ligne">Ligne / Parc</label>
+                        <p-dropdown  formControlName="ligne" (onChange)="fillListProcess(selectLigne)" (onClear)="clearprocessuList()"
+                        [options]="Lignes" [(ngModel)]="selectLigne" 
+                        [autoDisplayFirst]="false" optionLabel="libelle" [showClear]="true"></p-dropdown>
+                    </div>
+                    <div class="field col-12 md:col-4">
+                        <label class="text-secondary font-bold" htmlfor="processus">Processus</label>
+                        <p-multiSelect [options]="processusList" formControlName="processus" optionLabel="libelle" (onClear)="clearprocessuList()"
+                        [(ngModel)]="selectProcessus" [showClear]="true"></p-multiSelect>
+                    </div>
+                </div>
+
+                <div class="p-fluid">
+                    <p-divider align="right">
+                        <span class="p-buttonset">
+                            <button pButton pRipple type="reset" class="p-button-secondary mr-2 mb-2" label="Annuler" (click)="reset()"></button>
+                            <button pButton pRipple type="submit" class="p-button-success mr-2 mb-2" (click)="submit()" [disabled]="myForm.invalid" label="Chercher"></button>
+                        </span>
+                    </p-divider>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-12">
+		<div class="card">
+			<h5 class="font-bold">{{numRows}} - Résultats</h5>
+			<p-table  scrollDirection="both" [scrollable]="true"
+            [value]="ResultEnragistrement" 
+            scrollHeight="400px"
+            responsiveLayout="scroll" >
+				<ng-template pTemplate="header">
+					<tr>
+						<th style="width:120px;">Date Réunion</th>
+                        <th style="width:100px;">Heure</th>
+						<th style="width:120px;">Ligne</th>
+						<th style="width:200px;">Processus</th>
+						<th style="width:30px;">N°</th>
+						<th style="width:100px;">Effets</th>
+						<th style="width:200px;">Problèmes</th>
+						<th style="width:200px;">Causes</th>
+						<th style="width:200px;">Equipe présente</th>
+						<th style="width:200px;">Action corrective</th>
+                        <th style="width:200px;">Equipe responsable</th>
+                        <th style="width:120px;">Date prévue</th>
+                        <th style="width:120px;">Date cloture</th>
+                        <th style="width:150px;">Accès</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-enregistrement>
+					<tr>
+						<td style="width:120px;">{{enregistrement.dateEnreg}}</td>
+                        <td style="width:100px;">{{enregistrement.heure_conv}}</td>
+                        <td style="width:120px;">{{enregistrement.Ligne_nom}}</td>
+                        <td style="width:200px;">{{enregistrement.processus_code}}</td>
+                        <td style="width:30px;">{{enregistrement.numReunion}}</td>
+                        <td style="width:100px;">{{enregistrement.effets}}</td>
+                        <td style="width:200px;"><pre>{{enregistrement.incident.probleme}}</pre></td>
+                        <td style="width:200px;"><pre>{{enregistrement.incident.cause}}</pre></td>
+                        <td style="width:200px;">{{enregistrement.personnel_nom_niv1}}</td>
+                        <td style="width:200px;"><pre>{{enregistrement.incident.actionCorrective}}</pre></td>
+                        <td style="width:200px;">{{enregistrement.personnel_nom_niv2}}</td>
+                        <td style="width:120px;">{{enregistrement.datePrevue}}</td>
+                        <td style="width:120px;">{{enregistrement.dateCloture}}</td>
+                        <td style="width:150px;">
+                            <button pButton pRipple type="button" icon="pi pi-check" title="Valider" class="p-button-rounded p-button-success mr-2 mb-2" (click) ="edit(enregistrement)"></button>
+                            
+                            <p-confirmDialog header="Confirmation" key="{{enregistrement.id}}" icon="pi pi-exclamation-triangle"
+                             [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+                            <button pButton pRipple type="button" icon="pi pi-trash" title="Supprimer" class="p-button-rounded p-button-danger mr-2 mb-2" (click)="confirm(enregistrement)"></button>
+                        </td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</div>
+</div>

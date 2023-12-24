@@ -1,0 +1,60 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>
+            <button (click)="back()" pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-success mt-5 mr-3"></button>
+            <b>Valider la réuinon N°</b>
+            <span *ngIf="selectedEnregistrement" class="text-primary font-bold mt-0">{{selectedEnregistrement?.numReunion}} : Le {{selectedEnregistrement?.dateEnreg}} à {{selectedEnregistrement?.heure_conv}} de {{selectedEnregistrement?.Ligne_nom}}</span>  
+            </h4> 
+            
+                <form [formGroup]="myForm" >
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="service">Services présents</label>
+                            <p-multiSelect [options]="serviceList" formControlName="service"  (onChange)="fillListPersonnel(selectService)" 
+                            optionLabel="nom"  [(ngModel)]="selectService" [showClear]="true" (onClear)="clearpersonnelList()"
+                              styleClass="form-control"></p-multiSelect>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="personnel">Personnel</label>
+                            <p-multiSelect [options]="personnelList" formControlName="personnel" 
+                            [(ngModel)]="selectPersonnel" [showClear]="true"   optionLabel="nom"  >
+                           <!--  <ng-template let-personnel pTemplate="selectedItems">
+                                <div class="country-item country-item-value" *ngFor="let personnel of selectPersonnel">
+                                    <div>{{personnel.prenom}} {{personnel.nom}}</div>
+                                </div>
+                            </ng-template> -->
+                            <ng-template let-personnel pTemplate="item">
+                                <div>{{personnel.prenom}} {{personnel.nom}}</div>
+                            </ng-template>
+                            </p-multiSelect>
+                        </div>
+                    </div>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-8">
+                            <label class="text-secondary font-bold" htmlfor="actionCorrective">Action Corrective</label>
+                            <textarea rows="3" cols="30" placeholder="Action Corrective" pInputTextarea  
+                            formControlName="actionCorrective" [(ngModel)]="selectActionCorrective"></textarea>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="text-secondary font-bold" htmlfor="Prevue">Date Prevue</label>
+                            <p-calendar  formControlName="datePrevue" [(ngModel)]="selectedDatePrevue" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="text-secondary font-bold" htmlfor="Cloture">Date Clôture</label>
+                            <p-calendar  formControlName="dateCloture" [(ngModel)]="selectedDateCloture" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+                        </div>
+                        
+                    </div>
+                    <div class="p-fluid">
+                        <p-divider align="right">
+                            <span class="p-buttonset">
+                                <button pButton pRipple type="reset" class="p-button-secondary mr-2 mb-2" label="Annuler"></button>
+                                <button pButton pRipple type="submit" class="p-button-success mr-2 mb-2" (click)="submit()" [disabled]="myForm.invalid" label="Valider"></button>
+                            </span>
+                        </p-divider>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>

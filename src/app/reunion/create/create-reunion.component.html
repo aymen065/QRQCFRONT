@@ -1,0 +1,96 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>
+                <button (click)="back()" pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-success mt-5 mr-3"></button>
+                <span class="text-primary font-bold">Nouvelle Réuinon</span>
+            </h4>
+                <form [formGroup]="myForm" >
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-3">
+                            <label class="text-secondary font-bold" htmlfor="dateR">Date de Réunion</label>
+                            <p-calendar  formControlName="dateReunion" [(ngModel)]="date" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+                        </div>
+                        <div class="field col-12 md:col-3">
+                            <label class="text-secondary font-bold" htmlfor="timeR">Heure de Réunion</label>
+                            <p-calendar formControlName="heureReunion" [(ngModel)]="time" [timeOnly]="true" ></p-calendar>
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label class="text-secondary font-bold" htmlfor="effet">Effet</label>
+                            <p-multiSelect [options]="effetList" formControlName="effet" optionLabel="description" 
+                            [(ngModel)]="selecteffet" [showClear]="true"
+                              styleClass="form-control"></p-multiSelect>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="text-secondary font-bold" htmlfor="article">Article</label>
+                            <input type="text" pInputText formControlName="article"  [(ngModel)]="selectArticle">
+                        </div>
+                    </div>
+
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-5">
+                            <label class="text-secondary font-bold" htmlfor="ligne">Ligne / Parc</label>
+                            <p-dropdown  formControlName="ligne" (onChange)="fillListProcess($event)" 
+                            [options]="Lignes" [(ngModel)]="selectLigne" 
+                            [autoDisplayFirst]="false" optionLabel="libelle" [showClear]="true"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-5">
+                            <label class="text-secondary font-bold" htmlfor="processus">Processus</label>
+                            <p-multiSelect [options]="processusList" formControlName="processus" optionLabel="libelle" 
+                            [(ngModel)]="selectProcessus" [showClear]="true"
+                              styleClass="form-control"></p-multiSelect>
+                        </div>
+                        <div class="field col-12 md:col-2">
+                            <label class="text-secondary font-bold" htmlfor="timeR">N° Réunion</label>
+                            <p-inputNumber mode="decimal" [showButtons]="true" [min]="1" formControlName="numeroReunion" [(ngModel)]="numero" ></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="probleme">Problème détécté</label>
+                            <textarea rows="3" cols="30" placeholder="Problème détécté" pInputTextarea  
+                            formControlName="probleme" [(ngModel)]="selectProbleme"></textarea>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="cause">Cause</label>
+                            <textarea rows="3" cols="30" placeholder="Les causes" pInputTextarea
+                            formControlName="cause" [(ngModel)]="selectCause"></textarea>
+                        </div>
+                    </div>
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="service">Services présents</label>
+                            <p-multiSelect [options]="serviceList" formControlName="service"  (onChange)="fillListPersonnel($event)" 
+                            optionLabel="nom"  [(ngModel)]="selectService" [showClear]="true" (onClear)="clearpersonnelList()"
+                              styleClass="form-control"></p-multiSelect>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="personnel">Personnel</label>
+                            <p-multiSelect [options]="personnelList" formControlName="personnel"
+                            [(ngModel)]="selectPersonnel" [showClear]="true"   optionLabel="nom"  >
+                                
+                            <ng-template let-personnel pTemplate="item">
+                                <div>{{personnel.prenom}} {{personnel.nom}}</div>
+                            </ng-template>
+                            <!-- <ng-template let-personnel pTemplate="selectedItems" >
+                                <div *ngFor="let personne of selectPersonnel">
+                                    {{personne.prenom}} {{personne.nom}}
+                                </div> 
+                            </ng-template> -->
+                            </p-multiSelect>
+                        </div>
+                    </div>
+
+                    <div class="p-fluid">
+                        <p-divider align="right">
+                            <span class="p-buttonset">
+                                <button pButton pRipple type="reset" class="p-button-secondary mr-2 mb-2" label="Annuler"></button>
+                                <button pButton pRipple type="submit" class="p-button-success mr-2 mb-2" (click)="submit()" [disabled]="myForm.invalid" label="Valider"></button>
+                            </span>
+                        </p-divider>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>

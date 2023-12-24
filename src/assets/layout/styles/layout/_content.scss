@@ -1,0 +1,53 @@
+.layout-main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: space-between;
+    padding: 7rem 2rem 2rem 4rem;
+    transition: margin-left $transitionDuration;
+}
+
+.layout-main {
+    flex: 1 1 auto;
+}
+
+.p-divider.p-divider-horizontal {
+   margin: 0rem;
+  padding: 0 1.25rem;
+}
+
+/*.p-datatable-scrollable-both .p-datatable-thead>tr>th,
+.p-datatable-scrollable-both .p-datatable-tbody>tr>td,
+.p-datatable-scrollable-both .p-datatable-tfoot>tr>td,
+.p-datatable-scrollable-horizontal .p-datatable-thead>tr>th .p-datatable-scrollable-horizontal .p-datatable-tbody>tr>td,
+.p-datatable-scrollable-horizontal .p-datatable-tfoot>tr>td {
+  border: 2px solid #b7b7d7; //#6366F1;
+  background-color:#b7b7d7;
+  margin: 3px;
+  padding:5px;
+  border-radius: 5px ;
+}*/
+
+.p-datatable-scrollable-both .p-datatable-thead>tr>th,
+.p-datatable-scrollable-horizontal .p-datatable-thead>tr>th {
+  border: 2px solid #b7b7d7; //#6366F1;
+  background-color:#b7b7d7;
+  margin: 3px;
+  padding:10px;
+  border-radius: 5px ;
+}
+
+.p-datatable-scrollable-both .p-datatable-tbody>tr>td,
+.p-datatable-scrollable-both .p-datatable-tfoot>tr>td,
+.p-datatable-scrollable-horizontal .p-datatable-tbody>tr>td,
+.p-datatable-scrollable-horizontal .p-datatable-tfoot>tr>td {
+  border: 2px solid #b7b7d7; //#6366F1;
+  margin: 3px;
+  padding:5px;
+  border-radius: 5px ;
+}
+
+.text-denger{
+  color: red;
+  font-weight: bold;
+}

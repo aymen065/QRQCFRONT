@@ -1,0 +1,61 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <h4>
+                <button (click)="back()" pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded p-button-success mt-5 mr-3"></button>
+                <span class="text-primary font-bold">Nouveau Utilisateur</span>
+            </h4>
+                <form [formGroup]="myForm" >
+                    <div class="p-fluid p-formgrid grid">
+                        <div class="field col-12 md:col-4">
+                            <label class="text-secondary font-bold" htmlfor="login">Login</label>
+                            <input type="text" pInputText formControlName="login"  [(ngModel)]="user.login" (blur)="verificationLogin()">
+                            <div *ngIf="resLogin  && (login.dirty || login.touched)">
+                                <div class="text-denger"> Login existe déjà!</div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label class="text-secondary font-bold" htmlfor="nom">Nom</label>
+                            <input type="text" pInputText formControlName="nom"  [(ngModel)]="user.nom">
+                        </div>
+                        <div class="field col-12 md:col-4">
+                            <label class="text-secondary font-bold" htmlfor="prenom">Prénom</label>
+                            <input type="text" pInputText formControlName="prenom"  [(ngModel)]="user.prenom">
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="service">Service</label>
+                              <p-dropdown  formControlName="service" 
+                              [options]="serviceList" [(ngModel)]="user.service" 
+                              [autoDisplayFirst]="false" optionLabel="nom" [showClear]="true"></p-dropdown>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="roles">Rôles</label>
+                            <p-multiSelect formControlName="roles" optionLabel="roleName" [options]="ListAppRole"
+                            [(ngModel)]="user.appRoles" [showClear]="true"
+                              styleClass="form-control"></p-multiSelect>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="password">Mot de passe</label>
+                            <input type="password" pInputText [(ngModel)]="user.password" formControlName="password"/>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <label class="text-secondary font-bold" htmlfor="confirmation">Confirmation Mot de passe</label>
+                            <input type="password" pInputText [(ngModel)]="user.confirmPassword" formControlName="confirmation" (focusout)="checkPass()"/>
+                            <div *ngIf="!passMatch  && (confirmation.dirty || confirmation.touched)">
+                                <div class="text-denger"> Mot de passe non conforme!</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="p-fluid">
+                        <p-divider align="right">
+                            <span class="p-buttonset">
+                                <button pButton pRipple type="reset" class="p-button-secondary mr-2 mb-2" label="Annuler"></button>
+                                <button pButton pRipple type="submit" class="p-button-success mr-2 mb-2" (click)="submit()" [disabled]="myForm.invalid" label="Valider"></button>
+                            </span>
+                        </p-divider>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
