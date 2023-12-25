@@ -4,8 +4,8 @@
 
 export const environment = {
   
-  oauthUrl: 'http://localhost:5000/',
-  apiUrl: 'http://localhost:5000/',
+  oauthUrl: 'http://20.227.160.58:5000/',
+  apiUrl: 'http://20.227.160.58:5000/',
   //socketUrl: 'ws://localhost:5000',
  // clientId: 'site_gestion',
  //clientSecret: 'secret',
